@@ -1,3 +1,5 @@
+package hello_test_if_test;
+
 public class IfTest1 {
 	public static void main(String[] args) { 
 		int x=Integer.parseInt(args[0]);

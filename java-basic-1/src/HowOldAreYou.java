@@ -1,6 +1,3 @@
-package jp.ac.dendai.fi_22fi126;
-
-// C言語では、#include に相当する
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,19 +5,19 @@ import java.time.LocalDateTime;
 
 public class HowOldAreYou {
 
-    private static int AgeIn(int age, int year) {
+    private static int ageIn(int age, int year) {
         var dateTime = LocalDateTime.now();
         var ageInYear = year - dateTime.getYear() + age;
         return ageInYear;
     }
 
-    private static int BirthYear(int age) {
+    private static int birthYear(int age) {
         var dateTime = LocalDateTime.now();
         var birthYear = dateTime.getYear() - age;
         return birthYear;
     }
 
-    private static String WesternToJapanese(int year) throws IllegalArgumentException {
+    private static String westernToJapanese(int year) throws IllegalArgumentException {
         var eraNames = new String[] {"明治", "大正", "昭和", "平成", "令和"};
         var eraYears = new int[] {1868, 1912, 1926, 1989, 2019, Integer.MAX_VALUE};
 
@@ -43,12 +40,12 @@ public class HowOldAreYou {
         return era.toString();
     }
 
-    private static void OutputAge(int age) {
-        System.out.println("2030年の時点でのあなたの年齢は" + AgeIn(age, 2030) + "歳です。");
-        System.out.println("あなたは" + WesternToJapanese(BirthYear(age)) + "生まれです。");
+    private static void outputAge(int age) {
+        System.out.println("2030年の時点でのあなたの年齢は" + ageIn(age, 2030) + "歳です。");
+        System.out.println("あなたは" + westernToJapanese(birthYear(age)) + "生まれです。");
     }
 
-    private static boolean InputAge(BufferedReader reader) {
+    private static boolean inputAge(BufferedReader reader) {
         try {
             System.out.println("何歳ですか?");
             String line = reader.readLine();
@@ -68,7 +65,7 @@ public class HowOldAreYou {
                 return true;
             }
 
-            OutputAge(age);
+            outputAge(age);
             System.out.println("--------------------");
         }
         catch(IOException e) {
@@ -80,7 +77,7 @@ public class HowOldAreYou {
     public static void main(String[] args) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while(InputAge(reader)) {
+        while(inputAge(reader)) {
         }
     }
 }

@@ -1,8 +1,12 @@
-import java.io.*;    // C言語では、#include に相当する
+package hello_test_if_test;
+// C言語では、#include に相当する
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HowOldAreYou {
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			// BufferedReader というのは、データ読み込みのクラス(型)

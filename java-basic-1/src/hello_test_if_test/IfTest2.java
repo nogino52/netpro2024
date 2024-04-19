@@ -1,7 +1,7 @@
+package hello_test_if_test;
 //xが7,8,9ながbignumber
 //xが4,5,6ならmiddle number
 //xが1,2,3ならsmall numberを表示するプログラムを書け
-
 
 public class IfTest2 {
 	public static void main(String[] args) { 
