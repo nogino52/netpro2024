@@ -9,15 +9,6 @@
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "HelloArgs",
-            "request": "launch",
-            "mainClass": "HelloArgs",
-            "args": [
-                "A0", "A1", "A2", "A3"
-            ]
         }
     ]
 }
