@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ChatClient",
+            "request": "launch",
+            "mainClass": "ChatClient",
+            "projectName": "socket-1_a0074c1b"
+        },
+        {
+            "type": "java",
+            "name": "ChatServer",
+            "request": "launch",
+            "mainClass": "ChatServer",
+            "projectName": "socket-1_a0074c1b"
+        },
+        {
+            "type": "java",
             "name": "Client",
             "request": "launch",
             "mainClass": "Client",
