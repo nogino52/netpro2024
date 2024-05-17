@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Dinner",
+            "request": "launch",
+            "mainClass": "Dinner",
+            "projectName": "socket-2_a0074c1c"
+        },
+        {
+            "type": "java",
+            "name": "DinnerFullCourse",
+            "request": "launch",
+            "mainClass": "DinnerFullCourse",
+            "projectName": "socket-2_a0074c1c"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
