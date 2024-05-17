@@ -44,7 +44,9 @@ public class TaskServerOnce {
             
             /* サーバーを起動してクライアントからの接続を待つ */
             server.start(port);
-            server.acceptClient(ITask.class, taskRunner::onConnect, taskRunner::onReceive);
+            var handler = server.connectClient();
+            taskRunner.onConnect(handler);
+            handler.receiveContinuously(ITask.class, taskRunner::onReceive);
 
         } // エラーが発生したらエラーメッセージを表示してプログラムを終了する
         catch (BindException be) {

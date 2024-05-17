@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TaskClientWhile",
+            "request": "launch",
+            "mainClass": "TaskClientWhile",
+            "projectName": "socket-2_a0074c1c"
+        },
+        {
+            "type": "java",
+            "name": "TaskServerWhile",
+            "request": "launch",
+            "mainClass": "TaskServerWhile",
+            "projectName": "socket-2_a0074c1c"
+        },
+        {
+            "type": "java",
             "name": "TaskRunnerClient",
             "request": "launch",
             "mainClass": "TaskRunnerClient",
