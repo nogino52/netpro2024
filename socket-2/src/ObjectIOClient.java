@@ -2,16 +2,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-public class ObjectIOClient<TInput, TOutput> {
+public class ObjectIOClient<TInput, TOutput> implements IConnectionHandler<TInput> {
     private boolean _isConnected = false;
     private Socket _socket;
     private ObjectInputStream _ois;
     private ObjectOutputStream _oos;
 
+    @Override
     public boolean isConnected() {
         return _isConnected;
     }
@@ -37,27 +35,7 @@ public class ObjectIOClient<TInput, TOutput> {
     public void disconnect() throws IOException {
         close();
     }
-
-    public void receiveContinuously(Class<TInput> type, Predicate<TInput> onReceive) throws IOException, ClassNotFoundException {
-        while(_isConnected) {
-            var obj = receive(type);
-            if(!onReceive.test(obj)) {
-                break;
-            }
-        }
-    }
-
-    public void receiveContinuouslyAsync(Class<TInput> type, Consumer<TInput> onReceive) {
-        try {
-            while(_isConnected) {
-                var obj = receive(type);
-                CompletableFuture.runAsync(() -> onReceive.accept(obj));
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     public TInput receive(Class<TInput> type) throws IOException, ClassNotFoundException {
         if(_ois == null)
         {

@@ -3,9 +3,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class ObjectIOServer<TInput, TOutput> {
     private ServerSocket _serverSocket;
@@ -26,43 +23,18 @@ public class ObjectIOServer<TInput, TOutput> {
             _serverSocket.close();
     }
 
-    public class ClientHandler {
+    public class ClientHandler implements IConnectionHandler<TInput> {
         private Socket _socket;
         private ObjectInputStream _ois;
         private ObjectOutputStream _oos;
         private boolean _isConnected = false;
 
+        @Override
         public boolean isConnected() {
             return _isConnected;
         }
 
-        public void connect(Socket socket) throws IOException {
-            _socket = socket;
-            _oos = new ObjectOutputStream(socket.getOutputStream());
-            _ois = new ObjectInputStream(socket.getInputStream());
-            _isConnected = true;
-        }
-
-        public void receiveContinuously(Class<TInput> type, Predicate<TInput> onReceive) throws IOException, ClassNotFoundException {
-            while(_isConnected) {
-                var obj = receive(type);
-                if(!onReceive.test(obj)) {
-                    break;
-                }
-            }
-        }
-
-        public void receiveContinuouslyAsync(Class<TInput> type, Consumer<TInput> onReceive) {
-            try {
-                while(_isConnected) {
-                    var obj = receive(type);
-                    CompletableFuture.runAsync(() -> onReceive.accept(obj));
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
+        @Override
         public TInput receive(Class<TInput> type) throws IOException, ClassNotFoundException {
             var obj = _ois.readObject();
             
@@ -71,6 +43,13 @@ public class ObjectIOServer<TInput, TOutput> {
             }
 
             return null;
+        }
+
+        public void connect(Socket socket) throws IOException {
+            _socket = socket;
+            _oos = new ObjectOutputStream(socket.getOutputStream());
+            _ois = new ObjectInputStream(socket.getInputStream());
+            _isConnected = true;
         }
 
         public void send(TOutput obj) throws IOException {
