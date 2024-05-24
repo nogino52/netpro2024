@@ -1,0 +1,6 @@
+送信メッセージを入力してください: I am a superman.  
+サーバからの返信: I AM A SUPERMAN.
+送信メッセージを入力してください: This is a pen.
+サーバからの返信: THIS IS A PEN.
+送信メッセージを入力してください: what the fuck
+サーバからの返信: WHAT THE FUCK

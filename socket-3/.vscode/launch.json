@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MulticastClient",
+            "request": "launch",
+            "mainClass": "kadai.MulticastClient",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "MulticastServer",
+            "request": "launch",
+            "mainClass": "kadai.MulticastServer",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "ExThreadsMainTest",
+            "request": "launch",
+            "mainClass": "kadai.ExThreadsMainTest",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "CountAZTenRunnable",
+            "request": "launch",
+            "mainClass": "kadai.CountAZTenRunnable",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "UdpBroadcastClient",
+            "request": "launch",
+            "mainClass": "kadai.UdpBroadcastClient",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "UdpBroadcastServer",
+            "request": "launch",
+            "mainClass": "kadai.UdpBroadcastServer",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "UpperCaseClient",
+            "request": "launch",
+            "mainClass": "kadai.UpperCaseClient",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "UpperCaseServer",
+            "request": "launch",
+            "mainClass": "kadai.UpperCaseServer",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
             "name": "UDPClient",
             "request": "launch",
             "mainClass": "networking.udp.UDPClient",
