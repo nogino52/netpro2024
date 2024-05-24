@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UDPClient",
+            "request": "launch",
+            "mainClass": "networking.udp.UDPClient",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
+            "name": "UDPServer",
+            "request": "launch",
+            "mainClass": "networking.udp.UDPServer",
+            "projectName": "socket-3_a0074c1d"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
