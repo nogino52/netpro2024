@@ -46,7 +46,7 @@ class GUIAnimatinFaceLook {// 顔のオブジェクト
             makeEyes(g, w / 5);
             makeEyeBrowsUp(g, w / 8);
             makeNose(g, h / 5);
-            makeMouth(g, w / 2);
+            makeSmileMouth(g, w / 2);
             return;
         }
 
@@ -67,23 +67,23 @@ class GUIAnimatinFaceLook {// 顔のオブジェクト
      */
     void makeEyeBrows(Graphics g, int eyeSize) {
         g.drawLine(xStart + (h * 1 / 3) - 20, yStart + (w * 1 / 3) - 10,
-        xStart + (h * 1 / 3) + 20, yStart + (w * 1 / 3) - 10);
-        g.drawLine(xStart + (h * 2 / 3) - 20, yStart + (w * 1 / 3) - 10,
+        xStart + (h * 1 / 3) + 10, yStart + (w * 1 / 3) - 10);
+        g.drawLine(xStart + (h * 2 / 3) - 10, yStart + (w * 1 / 3) - 10,
         xStart + (h * 2 / 3) + 20, yStart + (w * 1 / 3) - 10);
     }
     //上がり眉
     void makeEyeBrowsUp(Graphics g, int eyeSize) {
         g.drawLine(xStart + (h * 1 / 3) - 20, yStart + (w * 1 / 3) - 10 + 10,
-        xStart + (h * 1 / 3) + 20, yStart + (w * 1 / 3) - 10);
-        g.drawLine(xStart + (h * 2 / 3) - 20, yStart + (w * 1 / 3) - 10,
+        xStart + (h * 1 / 3) + 10, yStart + (w * 1 / 3) - 10);
+        g.drawLine(xStart + (h * 2 / 3) - 10, yStart + (w * 1 / 3) - 10,
         xStart + (h * 2 / 3) + 20, yStart + (w * 1 / 3) - 10 + 10);
     }
 
     //下がり眉
     void makeEyeBrowsDown(Graphics g, int eyeSize) {
         g.drawLine(xStart + (h * 1 / 3) - 20, yStart + (w * 1 / 3) - 10 - 10,
-        xStart + (h * 1 / 3) + 20, yStart + (w * 1 / 3) - 10);
-        g.drawLine(xStart + (h * 2 / 3) - 20, yStart + (w * 1 / 3) - 10,
+        xStart + (h * 1 / 3) + 10, yStart + (w * 1 / 3) - 10);
+        g.drawLine(xStart + (h * 2 / 3) - 10, yStart + (w * 1 / 3) - 10,
         xStart + (h * 2 / 3) + 20, yStart + (w * 1 / 3) - 10 - 10);
     }
 
@@ -114,5 +114,11 @@ class GUIAnimatinFaceLook {// 顔のオブジェクト
         int yMiddle = yStart + 3 * w / 4;
         g.drawLine(xMiddle - mouseSize / 2, yMiddle, xMiddle + mouseSize / 2,
                 yMiddle);
+    }
+
+    public void makeSmileMouth(Graphics g, int mouseSize) {
+        int xMiddle = xStart + h / 2;
+        int yMiddle = yStart + 3 * w / 4;
+        g.drawArc(xMiddle - mouseSize / 2, yMiddle - 10, mouseSize, 20, 0, -180);
     }
 }// FaceObj End
