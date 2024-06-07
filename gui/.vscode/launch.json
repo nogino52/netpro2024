@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GUIAniMultiTCPClient2",
+            "request": "launch",
+            "mainClass": "guichat.GUIAniMultiTCPClient2",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
+            "name": "GUIAnimationMain",
+            "request": "launch",
+            "mainClass": "guichat.GUIAnimationMain",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
             "name": "SwingAnimationFaceObj",
             "request": "launch",
             "mainClass": "guibasic.SwingAnimationFaceObj",

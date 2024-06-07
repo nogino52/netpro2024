@@ -18,119 +18,124 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 class GUIAniMultiTCPClient2 {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java MultiClientSample [hostname] [message]");
+            System.exit(1);
+        }
+        new GUIAniMultiTCPClient2(args[0], args[1]);
+    }
 
-		new GUIAniMultiTCPClient2();
-	}
+    GUIAniMultiTCPClient2(String hostname, String message) {// コンストラクター
+        // String hostname="133.27....";//おとなりのipaddress
 
-	GUIAniMultiTCPClient2() {// コンストラクター
-		String hostname = "localhost";
-		// String hostname="133.27....";//おとなりのipaddress
+        // doClientJob(hostname,"message hello1岩井");
+        // doClientJob(hostname,"message hello2");
+        // doClientJob(hostname, "face,接続実験メッセージfromClient名前");
+        // 課題のヒント
+        doClientAccess(hostname, "message " + message);
 
-		// doClientJob(hostname,"message hello1岩井");
-		// doClientJob(hostname,"message hello2");
-		// doClientJob(hostname, "face,接続実験メッセージfromClient名前");
-		// 課題のヒント
-		doClientAccess(hostname, "face,place,0,100,200");
-		sleep5();
-		doClientAccess(hostname, "face,color,1,yellow");
-		sleep5();
-		doClientAccess(hostname, "face,emotion,0,angry");
-		sleep5();
+        while (true) {
+            try {
 
-		while (true) {
-			try {
+                BufferedReader reader = // キーボードから接続するサーバ名を読み込む
+                new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("input command:");
+                System.out.println("face,place,0,100,200");
+                System.out.println("face,color,1,yellow");
+                System.out.println("face,emotion,0,angry");
+                System.out.println(":");
 
-				BufferedReader reader = // キーボードから接続するサーバ名を読み込む
-				new BufferedReader(new InputStreamReader(System.in));
-				System.out.println("input command:");
-				System.out.println("face,place,0,100,200");
-				System.out.println("face,color,1,yellow");
-				System.out.println("face,emotion,0,angry");
-				System.out.println(":");
+                String commandfromClient = reader.readLine();
+                if(commandfromClient.equals("end")||commandfromClient.equals("1")){
+                    System.out.println("end");
+                    System.exit(1);
+                }
 
-				String commandfromClient = reader.readLine();
-				if(commandfromClient.equals("end")||commandfromClient.equals("1")){
-					System.out.println("end");
-					System.exit(1);
-				}
+                doClientAccess(hostname, commandfromClient);
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            sleep5();
+        }//while
+    }//multi tcp client
 
-				doClientAccess(hostname, "commandfromClient");
+    void sleep5() {
+        System.out.println("5s wait..");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
 
+    }
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			sleep5();
-		}//while
-	}//multi tcp client
+    public void doClientAccess(String hostname, String msg) {
+        Socket socket = null;
+        try {
 
-	void sleep5() {
-		System.out.println("5s wait..");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+            // アドレス情報を保持するsocketAddressを作成。
+            // ポート番号は5000
+            InetSocketAddress socketAddress = new InetSocketAddress(hostname,
+                    5000);
 
-	}
+            // socketAddressの値に基づいて通信に使用するソケットを作成する。
+            socket = new Socket();
+            // タイムアウトは10秒(10000msec)
+            socket.connect(socketAddress, 10000);
 
-	public void doClientAccess(String hostname, String msg) {
-		try {
+            // 接続先の情報を入れるInetAddress型のinadrを用意する。
+            InetAddress inadr;
 
-			// アドレス情報を保持するsocketAddressを作成。
-			// ポート番号は5000
-			InetSocketAddress socketAddress = new InetSocketAddress(hostname,
-					5000);
+            // inadrにソケットの接続先アドレスを入れ、nullである場合には
+            // 接続失敗と判断する。
+            // nullでなければ、接続確立している。
+            if ((inadr = socket.getInetAddress()) != null) {
+                System.out.println("Connect to " + inadr);
+            } else {
+                System.out.println("Connection failed.");
+                return;
+            }
 
-			// socketAddressの値に基づいて通信に使用するソケットを作成する。
-			Socket socket = new Socket();
-			// タイムアウトは10秒(10000msec)
-			socket.connect(socketAddress, 10000);
+            // メッセージの送信処理
+            // コマンドライン引数の2番目をメッセージとする。
+            String message = msg;
 
-			// 接続先の情報を入れるInetAddress型のinadrを用意する。
-			InetAddress inadr;
+            // PrintWriter型のwriterに、ソケットの出力ストリームを渡す。(Auto Flush)
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+            // ソケットの入力ストリームをBufferedReaderに渡す。
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    socket.getInputStream()));
 
-			// inadrにソケットの接続先アドレスを入れ、nullである場合には
-			// 接続失敗と判断する。
-			// nullでなければ、接続確立している。
-			if ((inadr = socket.getInetAddress()) != null) {
-				System.out.println("Connect to " + inadr);
-			} else {
-				System.out.println("Connection failed.");
-				return;
-			}
+            System.out.println("Send message: " + message);
 
-			// メッセージの送信処理
-			// コマンドライン引数の2番目をメッセージとする。
-			String message = msg;
+            // ソケットから出力する。
+            writer.println(message);
 
-			// PrintWriter型のwriterに、ソケットの出力ストリームを渡す。(Auto Flush)
-			PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-			// ソケットの入力ストリームをBufferedReaderに渡す。
-			BufferedReader rd = new BufferedReader(new InputStreamReader(
-					socket.getInputStream()));
+            // もしPrintWriterがAutoFlushでない場合は，以下が必要。
+            // writer.flush();
 
-			System.out.println("Send message: " + message);
+            // サーバーからのメッセージ読み取り
+            String getline = rd.readLine();
+            System.out.println("Message from Server:" + getline);
 
-			// ソケットから出力する。
-			writer.println(message);
+            // 終了処理
 
-			// もしPrintWriterがAutoFlushでない場合は，以下が必要。
-			// writer.flush();
-
-			// サーバーからのメッセージ読み取り
-			String getline = rd.readLine();
-			System.out.println("Message from Server:" + getline);
-
-			// 終了処理
-
-			rd.close();
-			writer.close();
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            rd.close();
+            writer.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(socket!=null){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

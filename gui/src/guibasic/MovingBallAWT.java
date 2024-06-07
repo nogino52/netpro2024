@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Random;
 
 //配列で5つのボールを動かしてみよう
 
@@ -24,8 +25,7 @@ public class MovingBallAWT {
     static class FFrame extends Frame implements Runnable {
 
         Thread th;
-        Ball myBall1;
-        Ball myBall2;
+        Ball[] balls;
 
         private boolean enable = true;
         private int counter = 0;
@@ -33,33 +33,33 @@ public class MovingBallAWT {
         FFrame() {
             th = new Thread(this);
             th.start();
+
+            balls = new Ball[5];
+
+            var random = new Random();
+
+            for (int i = 0; i < balls.length; i++) {
+                balls[i] = new Ball();
+                balls[i].setPosition(random.nextInt(400), random.nextInt(400));
+                balls[i].setDelta(1 + i, 1 + i);
+                balls[i].setR(10 + i * 5);
+                balls[i].setColor(new Color(255 - i * 50, 0, 0));
+            }
         }
 
         public void run() {
-
-
-            myBall1 = new Ball();
-            myBall1.setPosition(200, 150);
-            myBall1.setR(10);
-            myBall1.setColor(Color.RED);
-
-            myBall2 = new Ball();
-            myBall2.setPosition(50, 250);
-            myBall2.setR(20);
-            myBall2.setColor(Color.GREEN);
-
             while (enable) {
 
                 try {
-                    th.sleep(100);
+                    Thread.sleep(10);
                     counter++;
-                    if (counter >= 200) enable = false;
+                    if (counter >= 2000) enable = false;
                 } catch (InterruptedException e) {
                 }
 
-
-                myBall1.move();
-                myBall2.move();
+                for (int i = 0; i < balls.length; i++) {
+                    balls[i].move(counter, 100, 100, 400, 400);
+                }
 
                 repaint();  // paint()メソッドが呼び出される
             }
@@ -67,14 +67,19 @@ public class MovingBallAWT {
 
 
         public void paint(Graphics g) {
-            myBall1.draw(g);
-            myBall2.draw(g);
+            for (int i = 0; i < balls.length; i++) {
+                balls[i].draw(g);
+            }
         }
 
         // Ball というインナークラスを作る
         class Ball {
+
+
             int x;
             int y;
+            int dx;
+            int dy;
             int r; // 半径
             Color c = Color.RED;
 
@@ -86,36 +91,25 @@ public class MovingBallAWT {
             }
 
 
-            void move() {
+            void move(int counter, int xMin, int yMin, int xMax, int yMax) {
+                r = (int)Math.round(Math.sin(counter / 50.0) * 10) + 15;
 
-                if ((xDir == 1) && (x >= 300)) {
+                if ((xDir == 1) && (x + r >= xMax)) {
                     xDir = -1;
                 }
-                if ((xDir == -1) && (x <= 100)) {
+                if ((xDir == -1) && (x - r <= xMin)) {
                     xDir = 1;
                 }
 
-                if (xDir == 1) {
-                    x = x + 10;
-                } else {
-                    x = x - 10;
-                }
-
-
-                if ((yDir == 1) && (y >= 300)) {
+                if ((yDir == 1) && (y + r >= yMax)) {
                     yDir = -1;
                 }
-                if ((yDir == -1) && (y <= 100)) {
+                if ((yDir == -1) && (y - r <= yMin)) {
                     yDir = 1;
                 }
 
-                if (yDir == 1) {
-                    y = y + 10;
-                } else {
-                    y = y - 10;
-                }
-
-
+                x += xDir == 1 ? dx : -dx;
+                y += yDir == 1 ? dy : -dy;
             }
 
 
@@ -124,13 +118,18 @@ public class MovingBallAWT {
                 this.y = y;
             }
 
+            void setDelta(int dx, int dy) {
+                this.dx = dx;
+                this.dy = dy;
+            }
+
             void setR(int r) {
                 this.r = r;
             }
 
             void draw(Graphics g) {
                 g.setColor(c);
-                g.fillOval(x, y, 2 * r, 2 * r);  // rは半径なので2倍にする
+                g.fillOval(x - r, y - r, 2 * r, 2 * r);  // rは半径なので2倍にする
             }
 
         }//innner class Ball end
