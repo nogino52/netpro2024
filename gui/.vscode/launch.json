@@ -1,0 +1,42 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SwingAnimationFaceObj",
+            "request": "launch",
+            "mainClass": "guibasic.SwingAnimationFaceObj",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
+            "name": "MovingBallFacesAWT",
+            "request": "launch",
+            "mainClass": "guibasic.MovingBallFacesAWT",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
+            "name": "MovingBallAWT",
+            "request": "launch",
+            "mainClass": "guibasic.MovingBallAWT",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
+            "name": "FacesAWTMain",
+            "request": "launch",
+            "mainClass": "FacesAWTMain",
+            "projectName": "gui_e0bd8ef7"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}
